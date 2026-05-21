@@ -8,12 +8,12 @@ A voice-based digit recognition system written in **C++** for Windows that recog
 
 ## Features
 
-- 🎤 Real-time microphone digit recognition
-- 🧠 Hidden Markov Model (HMM) based classification
-- 📊 LPC & Cepstral feature extraction
-- 🔢 Vector Quantization using LBG clustering
-- ⚡ File-based and live testing support
-- 🪟 Windows audio capture using WinMM APIs
+- Real-time microphone digit recognition
+- Hidden Markov Model (HMM) based classification
+- LPC & Cepstral feature extraction
+- Vector Quantization using LBG clustering
+- File-based and live testing support
+- Windows audio capture using WinMM APIs
 
 ---
 
@@ -70,7 +70,7 @@ Digit Prediction
 
 ### Requirements
 
-- Visual Studio 2019 / 2022
+- Visual Studio 2010
 - Desktop Development with C++
 - Windows SDK
 
@@ -85,38 +85,10 @@ Digit_Recognition.vcxproj
 ```
 
 Then build using:
-- `Debug`
-- `Release`
+- `Build -> Build Solution`
 
 configuration.
 
----
-
-### Build Using Command Line
-
-```bat
-msbuild Digit_Recognition.vcxproj /p:Configuration=Release /p:Platform=Win32
-```
-
-For debug build:
-
-```bat
-msbuild Digit_Recognition.vcxproj /p:Configuration=Debug /p:Platform=Win32
-```
-
----
-
-## Run
-
-```bat
-Release\Digit_Recognition.exe
-```
-
-or
-
-```bat
-Debug\Digit_Recognition.exe
-```
 
 ---
 
@@ -209,9 +181,9 @@ After training, the following files are generated:
 
 ## Important Notes
 
-- ⚠️ This project is Windows-only.
-- 🎙️ A working microphone is required for live testing.
-- 📁 Keep dataset paths unchanged.
-- 🧠 Train models before testing if model files are missing.
+- This project is Windows-only.
+- A working microphone is required for live testing.
+- Keep dataset paths unchanged.
+- Train models before testing if model files are missing.
 
 ---
