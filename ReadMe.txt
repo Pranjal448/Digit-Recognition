@@ -1,43 +1,47 @@
-````md
+Here is a polished, professional version of your README optimized for GitHub. I organized the sections logically, removed the repetitive horizontal rules, added standard GitHub formatting (like badges and blockquotes for notes), and grouped the setup instructions for better readability.
+
+```markdown
 # Digit Recognition using HMM and LPC
 
-A voice-based digit recognition system written in C++ for Windows that recognizes spoken digits (`0–9`) using classical speech recognition techniques.
+![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=c%2B%2B&logoColor=white)
+![Windows](https://img.shields.io/badge/Platform-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
+![Visual Studio](https://img.shields.io/badge/Visual_Studio-5C2D91?style=flat-square&logo=visual-studio&logoColor=white)
 
-This project implements the complete speech-recognition pipeline from scratch without external machine learning or speech-processing libraries.
+A voice-based digit recognition system written in C++ for Windows that recognizes spoken digits (`0–9`) using classical speech recognition techniques. 
 
----
+This project implements the complete speech-recognition pipeline from scratch without relying on external machine learning or speech-processing libraries.
+
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Speech Recognition Pipeline](#speech-recognition-pipeline)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Dataset Format](#dataset-format)
+- [Concepts Implemented](#concepts-implemented)
+- [Future Improvements](#future-improvements)
 
 ## Features
-
-- Speech-based digit recognition (`0–9`)
-- LPC and cepstral feature extraction
-- Vector Quantization using LBG clustering
-- Hidden Markov Model (HMM) training
-- Baum-Welch learning algorithm
-- Real-time microphone testing
-- File-based batch testing
-- WinMM-based audio recording
-
----
+- **Speech-based digit recognition** (`0–9`)
+- **LPC and cepstral feature extraction** for acoustic modeling
+- **Vector Quantization** using LBG clustering
+- **Hidden Markov Model (HMM) training** utilizing the Baum-Welch learning algorithm
+- **Real-time microphone testing** using WinMM-based audio recording
+- **File-based batch testing** for accuracy evaluation
 
 ## Tech Stack
-
-- C++
-- Visual Studio
-- WinMM API
-- Hidden Markov Models (HMM)
-- Linear Predictive Coding (LPC)
-- Vector Quantization (VQ)
-
----
+- **Language:** C++
+- **IDE:** Visual Studio
+- **Audio API:** WinMM (Windows Multimedia API)
+- **Core Algorithms:** Hidden Markov Models (HMM), Linear Predictive Coding (LPC), Vector Quantization (VQ)
 
 ## Speech Recognition Pipeline
 
 ```text
 Audio Input
     ↓
-Preprocessing
-(DC Shift Removal + Normalization)
+Preprocessing (DC Shift Removal + Normalization)
     ↓
 Frame Blocking + Hamming Window
     ↓
@@ -52,243 +56,121 @@ Observation Sequence
 Hidden Markov Models
     ↓
 Digit Prediction
-````
 
----
+```
 
 ## Project Structure
 
-| File / Folder                              | Description                               |
-| ------------------------------------------ | ----------------------------------------- |
-| `Digit_Recognition.cpp`                    | Main application and recognition pipeline |
-| `stdafx.h`, `stdafx.cpp`                   | Visual Studio precompiled headers         |
-| `targetver.h`                              | Windows target version configuration      |
-| `Digit_Recognition.vcxproj`                | Visual Studio project file                |
-| `Digits/English/txt/`                      | Training and testing speech samples       |
-| `codebook.txt`                             | Trained vector quantization codebook      |
-| `model_digit_0.txt` to `model_digit_9.txt` | Trained HMM models                        |
+| File / Directory | Description |
+| --- | --- |
+| `Digit_Recognition.cpp` | Main application and recognition pipeline |
+| `stdafx.h`, `stdafx.cpp` | Visual Studio precompiled headers |
+| `targetver.h` | Windows target version configuration |
+| `Digit_Recognition.vcxproj` | Visual Studio project file |
+| `Digits/English/txt/` | Training and testing speech samples |
+| `codebook.txt` | Trained vector quantization codebook |
+| `model_digit_0.txt` ... `9` | Trained HMM models for each digit |
 
----
-
-## How It Works
-
-### 1. Preprocessing
-
-The program:
-
-* Removes DC offset
-* Normalizes amplitude
-* Splits speech into frames
-* Applies Hamming windowing
-
----
-
-### 2. Feature Extraction
-
-For each frame:
-
-* LPC coefficients are computed
-* Cepstral coefficients are generated
-* Features are stored for training/testing
-
----
-
-### 3. Vector Quantization
-
-The system:
-
-* Trains a 64-vector codebook using the LBG algorithm
-* Converts feature vectors into observation symbols
-
----
-
-### 4. HMM Training
-
-One 5-state Hidden Markov Model is trained for each digit (`0–9`) using:
-
-* Baum-Welch re-estimation
-* Forward procedure
-* Observation likelihood computation
-
----
-
-### 5. Recognition
-
-For testing:
-
-* Speech samples are converted into observation sequences
-* Likelihood is computed against all digit models
-* The digit with highest probability is selected
-
----
-
-## Build Instructions
+## Getting Started
 
 ### Prerequisites
 
-Install:
+To build and run this project, you will need:
 
 * Visual Studio 2019 or 2022
-* Desktop Development with C++
+* "Desktop Development with C++" workload installed
 * Windows SDK
 
----
+> **Note:** This project is **Windows-only** as it relies on the WinMM API for microphone access.
 
-### Build Using Visual Studio
+### Building the Project
 
-Open:
+**Option 1: Using Visual Studio**
 
-```text
-Digit_Recognition.vcxproj
-```
+1. Open `Digit_Recognition.vcxproj` in Visual Studio.
+2. Select your desired configuration (`Debug` or `Release`).
+3. Build the solution (`Ctrl + Shift + B`).
 
-Then:
-
-* Select `Debug` or `Release`
-* Build the solution
-
----
-
-### Build Using Command Line
-
+**Option 2: Using the Command Line**
 Open a **Developer Command Prompt for Visual Studio** and run:
 
 ```bat
 msbuild Digit_Recognition.vcxproj /p:Configuration=Release /p:Platform=Win32
+
 ```
 
-For debug build:
+*(Replace `Release` with `Debug` for debug builds).*
 
-```bat
-msbuild Digit_Recognition.vcxproj /p:Configuration=Debug /p:Platform=Win32
-```
+### Running the Application
 
----
-
-## Running the Project
-
-Run the executable from:
+Navigate to your build directory and run the executable:
 
 ```bat
 Release\Digit_Recognition.exe
+
 ```
 
-or
+## Usage
 
-```bat
-Debug\Digit_Recognition.exe
-```
-
----
-
-## Menu Options
+Upon running the application, you will be presented with a CLI menu:
 
 ```text
 1. Train Models
 2. Test Using Saved Files
 3. Test Using Microphone
 4. Quit
+
 ```
 
-### Train Models
+1. **Train Models:** Reads training files from `Digits/English/txt/` and generates the `codebook.txt` and `model_digit_X.txt` files. *(If model files are missing, you must run this step first).*
+2. **Test Using Saved Files:** Evaluates saved speech samples against the trained models, printing the predicted digits and overall accuracy.
+3. **Test Using Microphone:** Records live audio from your default recording device and performs real-time digit recognition.
 
-* Reads training files from:
+## Dataset Format
 
-  ```text
-  Digits/English/txt/
-  ```
-* Generates:
+Training files in the `Digits/English/txt/` directory must follow this naming convention:
+`254101040_E_<digit>_<utterance>.txt`
 
-  * `codebook.txt`
-  * `model_digit_0.txt` to `model_digit_9.txt`
+**Example:** `254101040_E_3_15.txt`
 
----
+* **Digit:** `3`
+* **Utterance:** `15`
 
-### Test Using Saved Files
-
-* Evaluates saved speech samples
-* Prints predicted digits and final accuracy
-
----
-
-### Test Using Microphone
-
-* Records live audio from microphone
-* Performs real-time digit recognition
-
----
-
-## Dataset Naming Format
-
-Training files follow:
-
-```text
-254101040_E_<digit>_<utterance>.txt
-```
-
-Example:
-
-```text
-254101040_E_3_15.txt
-```
-
-Meaning:
-
-* Digit = `3`
-* Utterance number = `15`
-
----
-
-## Important Notes
-
-* This project is Windows-only because it uses WinMM APIs.
-* The dataset folder structure must remain unchanged.
-* If model files are missing, run training first.
-* Microphone testing requires a working default recording device.
-
----
+> **Warning:** The dataset folder structure must remain unchanged for the program to locate the training and testing files.
 
 ## Concepts Implemented
 
-This project implements several classical speech-recognition concepts:
+This project serves as an educational implementation of classical speech and pattern recognition concepts:
 
-* Linear Predictive Coding (LPC)
-* Cepstral Analysis
+* Linear Predictive Coding (LPC) & Cepstral Analysis
 * Hamming Windowing
 * Tokhura Distance
-* Vector Quantization
-* LBG Clustering
-* Hidden Markov Models
+* Vector Quantization & LBG Clustering
+* Hidden Markov Models (HMM)
 * Baum-Welch Algorithm
 * Forward Probability Computation
 
----
-
 ## Future Improvements
 
-* MFCC-based feature extraction
-* Noise reduction
-* GUI interface
-* Speaker-independent recognition
-* Deep learning based acoustic models
-
----
+* [ ] Implement MFCC-based feature extraction for better noise robustness
+* [ ] Add pre-processing for environmental noise reduction
+* [ ] Develop a graphical user interface (GUI)
+* [ ] Extend to speaker-independent recognition
+* [ ] Compare against deep learning-based acoustic models
 
 ## Demo
 
-*Add screenshots or terminal outputs here.*
-
-Example:
+*(Add screenshots or GIF recordings of terminal outputs here)*
 
 ```md
-![Demo](assets/demo.png)
+![Terminal Output](assets/demo.png)
+
 ```
 
 ---
 
-## Author
-
-Developed as a speech recognition and pattern recognition project using classical machine learning techniques in C++.
+**Author:** Developed as a speech and pattern recognition project exploring classical machine learning techniques in C++.
 
 ```
+
 ```
